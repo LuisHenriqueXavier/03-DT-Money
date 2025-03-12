@@ -1,0 +1,28 @@
+{
+    "transactions": [
+        {
+            "id": 1,
+            "description": "Desenvolvimento de website",
+            "type": "income",
+            "category": "Venda",
+            "price": 12000,
+            "createdAt": "2025-03-12T06:53:44.113Z"
+        },
+        {
+            "id": 2,
+            "description": "Hamburguer",
+            "type": "outcome",
+            "category": "Alimentação",
+            "price": 59,
+            "createdAt": "2025-03-12T06:40:44.113Z"
+        },
+        {
+            "id": 3,
+            "description": "Aluguel",
+            "type": "outcome",
+            "category": "Casa",
+            "price": 1200,
+            "createdAt": "2025-03-13T06:53:44.113Z"
+        }
+    ]
+}

@@ -4,7 +4,7 @@ import { CloseButton, Content, Overlay, TansactionType, TransactionTypeButton } 
 import { ArrowCircleDown, ArrowCircleUp, X } from "phosphor-react";
 
 import * as z from 'zod';
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const newTransactionFormSchema = z.object({
@@ -14,11 +14,12 @@ const newTransactionFormSchema = z.object({
     type: z.enum(['income', 'outcome']),
 })
 
-type NewTransactionFormImputs =z.infer<typeof newTransactionFormSchema>;
+type NewTransactionFormImputs = z.infer<typeof newTransactionFormSchema>;
 
 export function NewTransactionModal() {
-    const { 
-        register, 
+    const {
+        control,
+        register,
         handleSubmit,
         formState: { isSubmitting }
     } = useForm<NewTransactionFormImputs>({
@@ -43,36 +44,49 @@ export function NewTransactionModal() {
 
 
                 <form onSubmit={handleSubmit(handleCreateNewTransaction)}>
-                    <input 
-                    type="text" 
-                    placeholder="Descrição" 
-                    required
-                    {...register('description')} 
+                    <input
+                        type="text"
+                        placeholder="Descrição"
+                        required
+                        {...register('description')}
                     />
-                    <input 
-                    type="number" 
-                    placeholder="Preço" 
-                    required
-                    {...register('price', { valueAsNumber: true })} 
+                    <input
+                        type="number"
+                        placeholder="Preço"
+                        required
+                        {...register('price', { valueAsNumber: true })}
                     />
-                    <input 
-                    type="text" 
-                    placeholder="Categoria" 
-                    required
-                    {...register('category')} 
+                    <input
+                        type="text"
+                        placeholder="Categoria"
+                        required
+                        {...register('category')}
                     />
 
-                    <TansactionType>
-                        <TransactionTypeButton value="income" variant="income" >
-                            <ArrowCircleUp size={24} />
-                            Entrada
-                        </TransactionTypeButton>
+                    <Controller
+                        control={control}
+                        name="type"
+                        render={({ field }) => {
+                            console.log(field)
+                            return (
+                                <TansactionType 
+                                onValueChange={field.onChange} 
+                                value={field.value}
+                                >
+                                    <TransactionTypeButton value="income" variant="income" >
+                                        <ArrowCircleUp size={24} />
+                                        Entrada
+                                    </TransactionTypeButton>
 
-                        <TransactionTypeButton value="outcome" variant="outcome" >
-                            <ArrowCircleDown size={24} />
-                            Saída
-                        </TransactionTypeButton>
-                    </TansactionType>
+                                    <TransactionTypeButton value="outcome" variant="outcome" >
+                                        <ArrowCircleDown size={24} />
+                                        Saída
+                                    </TransactionTypeButton>
+                                </TansactionType>
+                            )
+                        }}>
+
+                    </Controller>
 
                     <button type="submit" disabled={isSubmitting}>
                         Cadastrar

@@ -1,7 +1,7 @@
 import { MagnifyingGlass } from "phosphor-react";
 import { SearchFormContainer } from "./styles";
 import { useForm } from "react-hook-form";
-import * as z from "Zod";
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useContext } from "react";
 import { TransactionsContext } from "../../../../contexts/TransactionsContext";
